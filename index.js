@@ -1,9 +1,12 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
+const { Mongoose } = require('mongoose');
 const config = require('./config.json');
 const prefix = config.BotPrefix;
 client.commands = new Discord.Collection();
+
+const mongo = require('./mongo')
 
 //Gets commands.
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
@@ -14,9 +17,18 @@ for(const file of commandFiles){
 }
 
 //Log bot is ready and set status.
-client.on('ready', () => {
+client.on('ready', async () => {
     client.user.setActivity('Made by Parkeymon', { type: 'PLAYING'});
     console.log('Bot online.');
+
+    //Check mongodb connection
+    await mongo().then(mongoose => {
+        try {
+            console.log('Mongo connected.')
+        }  finally {
+            mongoose.connection.close()
+        }
+    });
 });
 
 //Join message
