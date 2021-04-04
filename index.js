@@ -18,7 +18,7 @@ for(const file of commandFiles){
 
 //Log bot is ready and set status.
 client.on('ready', async () => {
-    client.user.setActivity('Made by Parkeymon', { type: 'PLAYING'});
+    client.user.setActivity('nonfunctional lmao', { type: 'PLAYING'});
     console.log('Bot online.');
 
     //Check mongodb connection
@@ -29,15 +29,6 @@ client.on('ready', async () => {
             mongoose.connection.close()
         }
     });
-});
-
-//Join message
-client.on('guildMemberAdd', member => {
-    member.send('Welcome! Before you can use and talk in the server, you must be verified.');
-    const welcomeEmbed = new Discord.MessageEmbed().setColor('#ff1100')
-    .setTitle('How to get verified :white_check_mark:')
-    .setDescription(`Please send \`$verify\` to the bots DMs`)
-    member.send(welcomeEmbed)
 });
 
 //Command handler. I think? lmao
